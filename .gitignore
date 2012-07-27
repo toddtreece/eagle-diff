@@ -1,0 +1,5 @@
+node_modules/
+eagle.js
+eagle.min.js
+*.swp
+*.swo

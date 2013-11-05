@@ -11,10 +11,8 @@
     }
   ],
   "scripts": {
-    "start": "./bin/test-server"
-  },
-  "bin": {
-    "eagle-diff": "./bin/eagle-compile"
+    "start": "./bin/compile && ./bin/test-server",
+    "compile": "./bin/compile"
   },
   "repository": {
     "type": "git",
@@ -28,7 +26,8 @@
   ],
   "dependencies" : {
     "node-minify": "*",
-    "connect": "*"
+    "connect": "*",
+    "bower": "*"
   },
   "analyze": false,
   "license": "GPL v3",

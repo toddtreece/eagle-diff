@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+var compressor = require('node-minify'),
+    fs = require('fs'),
+    lib_path = require('path').normalize(__dirname + '/../lib/'),
+    files = fs.readdirSync(lib_path),
+    to_compress = [lib_path + 'Eagle.js'];
+
+for (var i = 0; i < files.length; i++) {
+
+  if (files[i] != 'Eagle.js' && files[i].substr(-3, 3) == '.js') {
+    to_compress.push(lib_path + files[i]);
+  }
+
+}
+
+new compressor.minify({
+  type: 'gcc',
+  fileIn: to_compress,
+  fileOut: 'eagle.min.js',
+  callback: function(err) {
+    console.log(err);
+  }
+});
+
+new compressor.minify({
+  type: 'no-compress',
+  fileIn: to_compress,
+  fileOut: 'eagle.js',
+  callback: function(err) {
+    console.log(err);
+  }
+});
+

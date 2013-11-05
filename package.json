@@ -1,0 +1,35 @@
+{
+  "name": "eagle-diff",
+  "preferGlobal": true,
+  "version": "0.0.1",
+  "author": "Todd Treece <todd@uniontownlabs.org>",
+  "description": "a browser based visual diff tool for cadsoft eagle files",
+  "contributors": [
+    {
+      "name": "Todd Treece",
+      "email": "todd@uniontownlabs.org"
+    }
+  ],
+  "bin": {
+    "eagle-diff": "./bin/eagle-compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toddtreece/eagle-diff.git"
+  },
+  "keywords": [
+    "eagle",
+    "diff",
+    "canvas",
+    "processing.js"
+  ],
+  "dependencies" : {
+    "node-minify"   :  "*"
+  },
+  "analyze": false,
+  "license": "GPL v3",
+  "engines": {
+    "node": ">=0.10"
+  }
+}
+

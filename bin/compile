@@ -19,7 +19,12 @@ new compressor.minify({
   fileIn: to_compress,
   fileOut: 'eagle.min.js',
   callback: function(err) {
-    console.log(err);
+
+    if(err)
+      console.log(err);
+    else
+      console.log('eagle.min.js compiled');
+
   }
 });
 
@@ -28,7 +33,12 @@ new compressor.minify({
   fileIn: to_compress,
   fileOut: 'eagle.js',
   callback: function(err) {
-    console.log(err);
+
+    if(err)
+      console.log(err);
+    else
+      console.log('eagle.js compiled');
+
   }
 });
 

@@ -10,6 +10,9 @@
       "email": "todd@uniontownlabs.org"
     }
   ],
+  "scripts": {
+    "start": "./bin/test-server"
+  },
   "bin": {
     "eagle-diff": "./bin/eagle-compile"
   },
@@ -24,7 +27,8 @@
     "processing.js"
   ],
   "dependencies" : {
-    "node-minify"   :  "*"
+    "node-minify": "*",
+    "connect": "*"
   },
   "analyze": false,
   "license": "GPL v3",

@@ -2,7 +2,8 @@
 
 var compressor = require('node-minify'),
     fs = require('fs'),
-    lib_path = require('path').normalize(__dirname + '/../lib/'),
+    path = require('path'),
+    lib_path = path.normalize(__dirname + '/../lib/'),
     files = fs.readdirSync(lib_path),
     to_compress = [lib_path + 'Eagle.js'];
 
@@ -17,7 +18,7 @@ for (var i = 0; i < files.length; i++) {
 new compressor.minify({
   type: 'gcc',
   fileIn: to_compress,
-  fileOut: 'eagle.min.js',
+  fileOut: path.normalize(__dirname + '/../build/eagle.min.js'),
   callback: function(err) {
 
     if(err)
@@ -31,7 +32,7 @@ new compressor.minify({
 new compressor.minify({
   type: 'no-compress',
   fileIn: to_compress,
-  fileOut: 'eagle.js',
+  fileOut: path.normalize(__dirname + '/../build/eagle.js'),
   callback: function(err) {
 
     if(err)

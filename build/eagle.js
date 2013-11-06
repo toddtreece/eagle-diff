@@ -88,23 +88,31 @@ var Eagle = {
       this.parsed.loadXML(this.xml);
     }
 
-    this.each('eagle',this.parsed, function(eagle) {
-      Eagle.version = Eagle.discernType(eagle.getAttribute('version'));
-
-      console.log(Eagle);
-
+    this.each('eagle', this.parsed, function(node) {
+      Eagle.version = Eagle.discernType(node.getAttribute('version'));
     });
 
-    /*$('drawing',this.xml).each(function() {
+    this.each('drawing', this.parsed, function(node) {
 
       Eagle.clear();
 
       var drawing = new Eagle.Drawing();
-          drawing.parse(this);
+          drawing.parse(node);
 
       Eagle.drawing = drawing;
 
-    }); */
+    });
+
+  },
+
+  beginPath: function() {
+
+    this.last.x = 0;
+    this.last.y = 0;
+
+    this.context.beginPath();
+
+    return this;
 
   },
 
@@ -714,52 +722,52 @@ Eagle.define('Eagle.Drawing', function() {
   this['board'] = null;
   this['layers'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var drawing = this;
 
-    $('grid', el).each(function() {
+    Eagle.each('grid', node, function(child) {
 
       var grid = new Eagle.Grid();
-          grid.parse(this);
+          grid.parse(child);
 
       drawing.grid = grid;
 
     });
 
-    $('settings', el).each(function() {
+    Eagle.each('settings', node, function(child) {
 
       var settings = new Eagle.Settings();
-          settings.parse(this);
+          settings.parse(child);
 
       drawing.settings = settings;
 
     });
 
-    $('schematic', el).each(function() {
+    Eagle.each('schematic', node, function(child) {
 
       var schematic = new Eagle.Schematic();
-          schematic.parse(this);
+          schematic.parse(child);
 
       drawing.schematic = schematic;
 
     });
 
-    $('board', el).each(function() {
+    Eagle.each('board', node, function(child) {
 
       var board = new Eagle.Board();
-          board.parse(this);
+          board.parse(child);
 
       drawing.board = board;
 
     });
 
-    $('layers', el).each(function() {
+    Eagle.each('layers', node, function(child) {
 
-      $('layer', this).each(function() {
+      Eagle.each('layer', child, function(lay) {
 
         var layer = new Eagle.Layer();
-            layer.parse(this);
+            layer.parse(lay);
 
         drawing.layers.push(layer);
 

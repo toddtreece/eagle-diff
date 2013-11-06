@@ -27,15 +27,20 @@ var Eagle = {
   drawing: null,
   xml: null,
 
+
   canvas: null,
   context: null,
+  last: {
+    x: 0,
+    y: 0
+  },
 
   define: function(string, object) {
 
     var parts = string.split('.'),
-    parent = window;
+        parent = window;
 
-    for (var i = 0, length = parts.length; i < length; i++) {
+    for(var i = 0, length = parts.length; i < length; i++) {
       parent[parts[i]] = parent[parts[i]] || object;
       parent = parent[parts[i]];
     }
@@ -60,7 +65,7 @@ var Eagle = {
   init: function(el, file) {
 
     this.canvas = document.getElementById(el);
-    this.context = canvas.getContext('2d');
+    this.context = this.canvas.getContext('2d');
 
     Eagle.get(file, function(data) {
       Eagle.xml = data;
@@ -71,11 +76,26 @@ var Eagle = {
 
   parse: function() {
 
-    $('eagle',this.xml).each(function() {
-      Eagle.version = Eagle.discernType(this.attr('version'));
+    if(! this.xml)
+      throw 'Loading failed';
+
+    if(window.DOMParser) {
+      var parser = new DOMParser();
+      this.parsed = parser.parseFromString(this.xml, 'text/xml');
+    } else {
+      this.parsed = new ActiveXObject('Microsoft.XMLDOM');
+      this.parsed.async = false;
+      this.parsed.loadXML(this.xml);
+    }
+
+    this.each('eagle',this.parsed, function(eagle) {
+      Eagle.version = Eagle.discernType(eagle.getAttribute('version'));
+
+      console.log(Eagle);
+
     });
 
-    $('drawing',this.xml).each(function() {
+    /*$('drawing',this.xml).each(function() {
 
       Eagle.clear();
 
@@ -84,7 +104,7 @@ var Eagle = {
 
       Eagle.drawing = drawing;
 
-    });
+    }); */
 
   },
 
@@ -94,7 +114,7 @@ var Eagle = {
 
     var command = (relative ? 'm' : 'M');
 
-    return command + ((this.paper.width / 2) + x) + ' ' + ((this.paper.height / 2) - y);
+    return command + ((this.canvas.width / 2) + x) + ' ' + ((this.canvas.height / 2) - y);
 
   },
 
@@ -104,7 +124,7 @@ var Eagle = {
 
     var command = (relative ? 'l' : 'L');
 
-    return command + ((this.paper.width / 2) + x) + ' ' + ((this.paper.height / 2) - y);
+    return command + ((this.canvas.width / 2) + x) + ' ' + ((this.canvas.height / 2) - y);
 
   },
 
@@ -126,6 +146,18 @@ var Eagle = {
 
   clear: function() {
     Eagle.context.clearRect(0, 0, Eagle.canvas.width, Eagle.canvas.height);
+  },
+
+  each: function(name, source, callback) {
+
+    var results = source.getElementsByTagName(name);
+
+    for(var i = 0; i < results.length; i++) {
+
+      callback(results[i]);
+
+    }
+
   }
 
 };

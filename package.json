@@ -24,15 +24,16 @@
     "canvas",
     "processing.js"
   ],
-  "dependencies" : {
+  "dependencies": {
     "node-minify": "*",
-    "connect": "*",
-    "bower": "*"
+    "connect": "*"
   },
   "analyze": false,
   "license": "GPL v3",
   "engines": {
     "node": ">=0.10"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
   }
 }
-

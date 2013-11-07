@@ -1,3 +1,5 @@
+/*! eagle-diff version 0.0.1 2013-11-07 */
+
 /**
  * eagle-diff
  * Copyright 2012 Todd Treece

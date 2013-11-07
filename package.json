@@ -10,9 +10,6 @@
       "email": "todd@uniontownlabs.org"
     }
   ],
-  "scripts": {
-    "start": "grunt && ./bin/test-server"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/toddtreece/eagle-diff.git"
@@ -34,6 +31,7 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-uglify": "~0.2.5",
-    "grunt-contrib-concat": "~0.3.0"
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.3"
   }
 }

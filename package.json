@@ -31,6 +31,7 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.7.1",
-    "connect": "~2.11.0"
+    "connect": "~2.11.0",
+    "grunt-cli": "~0.1.10"
   }
 }

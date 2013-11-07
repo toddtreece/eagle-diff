@@ -20,36 +20,39 @@
  * along with eagle-diff.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-Eagle.define('Eagle.Wire', function() {
+Eagle.define('Eagle.Segment', function() {
 
-  /** VARIABLES **/
-  this['x1'] = null;
-  this['y1'] = null;
-  this['x2'] = null;
-  this['y2'] = null;
-  this['width'] = null;
-  this['layer'] = null;
-  this['extent'] = null;
-  this['style'] = 'continuous';
-  this['curve'] = 0;
-  this['cap'] = 'round';
+  /** CHILDREN **/
+  this['type'] = null;
 
-  this['parse'] = function(el) {
+  this.valid_types = [
+    'PinRef',
+    'Wire',
+    'Junction',
+    'Label'
+  ];
 
-    var wire = this;
+  this.parse = function(node) {
 
-    $.each(el.attributes, function(i, attribute) {
-      wire[attribute.name] = Eagle.discernType(attribute.value);
+    var segment = this;
+
+    Ea.each(this.valid_types, function(i, t) {
+      
+      $(t.toLowerCase(), el).each(function() {
+
+        var obj = Eagle[t];
+
+        var type = new obj();
+            type.parse(this);
+
+        if(t == 'Wire')
+          type.draw();
+
+        segment.type = type;
+
+      });
+
     });
-
-  };
-
-  this['draw'] = function() {
-
-    var path = Eagle.moveTo(this.x1, this.y1);
-        path += Eagle.lineTo(this.x2, this.y2);
-
-    return Eagle.paper.path(path).attr({'stroke': '#FF0000'});
 
   };
 

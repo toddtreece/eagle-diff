@@ -20,38 +20,37 @@
  * along with eagle-diff.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-Eagle.define('Eagle.Segment', function() {
+Eagle.define('Eagle.Wire', function() {
 
-  /** CHILDREN **/
-  this['type'] = null;
+  /** VARIABLES **/
+  this['x1'] = null;
+  this['y1'] = null;
+  this['x2'] = null;
+  this['y2'] = null;
+  this['width'] = null;
+  this['layer'] = null;
+  this['extent'] = null;
+  this['style'] = 'continuous';
+  this['curve'] = 0;
+  this['cap'] = 'round';
 
-  this.valid_types = [
-    'PinRef',
-    'Wire',
-    'Junction',
-    'Label'
-  ];
+  this.parse = function(node) {
 
-  this.parse = function(el) {
+    var wire = this;
 
-    var segment = this;
-
-    $.each(this.valid_types, function(i, t) {
-
-      $(t.toLowerCase(), el).each(function() {
-
-        var obj = Eagle[t];
-
-        var type = new obj();
-            type.parse(this);
-            if(t == 'Wire')
-            type.draw();
-
-        segment.type = type;
-
-      });
-
+    Eagle.each(node.attributes, function(attribute) {
+      wire[attribute.name] = Eagle.discernType(attribute.value);
     });
+
+  };
+
+  this.draw = function() {
+
+    Eagle.beginPath()
+      .moveTo(this.x1, this.y1)
+      .lineTo(this.x2, this.y2)
+      .closePath()
+      .stroke(this.width, 'red');
 
   };
 

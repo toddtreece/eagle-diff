@@ -2090,20 +2090,21 @@ Eagle.define('Eagle.Segment', function() {
     'Label'
   ];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var segment = this;
 
-    $.each(this.valid_types, function(i, t) {
-
+    Ea.each(this.valid_types, function(i, t) {
+      
       $(t.toLowerCase(), el).each(function() {
 
         var obj = Eagle[t];
 
         var type = new obj();
             type.parse(this);
-            if(t == 'Wire')
-            type.draw();
+
+        if(t == 'Wire')
+          type.draw();
 
         segment.type = type;
 
@@ -2589,22 +2590,23 @@ Eagle.define('Eagle.Wire', function() {
   this['curve'] = 0;
   this['cap'] = 'round';
 
-  this['parse'] = function(el) {
+  this.parse = function(node) {
 
     var wire = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(attribute) {
       wire[attribute.name] = Eagle.discernType(attribute.value);
     });
 
   };
 
-  this['draw'] = function() {
+  this.draw = function() {
 
-    var path = Eagle.moveTo(this.x1, this.y1);
-        path += Eagle.lineTo(this.x2, this.y2);
-
-    return Eagle.paper.path(path).attr({'stroke': '#FF0000'});
+    Eagle.beginPath()
+      .moveTo(this.x1, this.y1)
+      .lineTo(this.x2, this.y2)
+      .closePath()
+      .stroke(this.width, 'red');
 
   };
 

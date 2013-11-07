@@ -16,23 +16,21 @@
   },
   "keywords": [
     "eagle",
+    "cad",
     "diff",
-    "canvas",
-    "processing.js"
+    "canvas"
   ],
-  "dependencies": {
-    "connect": "*"
-  },
   "analyze": false,
   "license": "GPL v3",
   "engines": {
-    "node": ">=0.10"
+    "node": ">=0.10.21"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-uglify": "~0.2.5",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-jshint": "~0.7.1"
+    "grunt-contrib-jshint": "~0.7.1",
+    "connect": "~2.11.0"
   }
 }

@@ -6,6 +6,5 @@ This tool is a work in progress.  More information will be available as the proj
 $ git clone git@github.com:toddtreece/eagle-diff.git
 $ cd eagle-diff
 $ npm install
-$ bower install
-$ npm start
+$ grunt serve
 ````

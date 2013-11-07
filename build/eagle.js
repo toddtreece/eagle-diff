@@ -120,9 +120,20 @@ var Eagle = {
 
     relative = (typeof relative !== 'undefined' ? relative : false);
 
-    var command = (relative ? 'm' : 'M');
+    // do the math
+    if(relative) {
+      x = this.last.x + x;
+      y = this.last.y + y;
+    }
 
-    return command + ((this.canvas.width / 2) + x) + ' ' + ((this.canvas.height / 2) - y);
+    // move to the location
+    this.context.moveTo(x, this.canvas.height - y);
+
+    // store the current location for later
+    this.last.x = x;
+    this.last.y = y;
+
+    return this;
 
   },
 
@@ -130,9 +141,31 @@ var Eagle = {
 
     relative = (typeof relative !== 'undefined' ? relative : false);
 
-    var command = (relative ? 'l' : 'L');
+    // do the math
+    if(relative) {
+      x = this.last.x + x;
+      y = this.last.y + y;
+    }
 
-    return command + ((this.canvas.width / 2) + x) + ' ' + ((this.canvas.height / 2) - y);
+    // move to the location
+    this.context.lineTo(x, this.canvas.height - y);
+
+    // store the current location for later
+    this.last.x = x;
+    this.last.y = y;
+
+    return this;
+
+  },
+
+  closePath: function() {
+
+    this.last.x = 0;
+    this.last.y = 0;
+
+    this.context.closePath();
+
+    return this;
 
   },
 

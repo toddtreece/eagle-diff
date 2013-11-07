@@ -1,9 +1,0 @@
-#!/usr/bin/env node
-
-var connect = require('connect');
-
-connect.createServer(
-  connect.static(__dirname + '/../test/')
-).listen(8080);
-
-console.log('Test server running at http://localhost:8080/');

@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> version <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        banner: '/*! <%= pkg.name %> version <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd h:MM:ss TT Z") %> */\n'
       },
       dist: {
         src: ['src/Eagle.js', 'src/Eagle/*.js'],
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
     },
     concat: {
       options: {
-        banner: '/*! <%= pkg.name %> version <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n\n'
+        banner: '/*! <%= pkg.name %> version <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd h:MM:ss TT Z") %> */\n\n'
       },
       dist: {
         src: ['src/Eagle.js', 'src/Eagle/*.js'],
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     },
     serve: {
       default: {
-        path: '/test/',
+        path: 'test/',
         port: 8080
       }
     }

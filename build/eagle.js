@@ -1,4 +1,4 @@
-/*! eagle-diff version 0.0.1 2013-11-07 */
+/*! eagle-diff version 0.0.1 2013-11-07 11:43:17 AM MST */
 
 /**
  * eagle-diff
@@ -28,7 +28,6 @@ var Eagle = {
   version: null,
   drawing: null,
   xml: null,
-
 
   canvas: null,
   context: null,
@@ -90,11 +89,11 @@ var Eagle = {
       this.parsed.loadXML(this.xml);
     }
 
-    this.each('eagle', this.parsed, function(node) {
+    this.eachNode('eagle', this.parsed, function(node) {
       Eagle.version = Eagle.discernType(node.getAttribute('version'));
     });
 
-    this.each('drawing', this.parsed, function(node) {
+    this.eachNode('drawing', this.parsed, function(node) {
 
       Eagle.clear();
 
@@ -191,7 +190,29 @@ var Eagle = {
     Eagle.context.clearRect(0, 0, Eagle.canvas.width, Eagle.canvas.height);
   },
 
-  each: function(name, source, callback) {
+  each: function(source, callback) {
+
+    if(source instanceof Array) {
+
+      for(var i = 0; i < source.length; i++) {
+
+        callback(i, source[i]);
+
+      }
+
+    } else if(typeof source == 'object') {
+
+      for(key in source) {
+
+        callback(key, source[key]);
+
+      }
+
+    }
+
+  },
+
+  eachNode: function(name, source, callback) {
 
     var results = source.getElementsByTagName(name);
 

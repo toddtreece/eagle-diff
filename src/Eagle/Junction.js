@@ -26,11 +26,11 @@ Eagle.define('Eagle.Junction', function() {
   this['x'] = null;
   this['y'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var junction = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       junction[attribute.name] = Eagle.discernType(attribute.value);
     });
 

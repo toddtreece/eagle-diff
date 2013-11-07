@@ -27,11 +27,11 @@ Eagle.define('Eagle.Hole', function() {
   this['y'] = null;
   this['drill'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var hole = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       hole[attribute.name] = Eagle.discernType(attribute.value);
     });
 

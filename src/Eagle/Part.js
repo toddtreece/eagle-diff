@@ -34,28 +34,28 @@ Eagle.define('Eagle.Part', function(){
   this['attributes'] = [];
   this['variants'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var part = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       part[attribute.name] = Eagle.discernType(attribute.value);
     });
 
 
-    $('attributes', el).each(function() {
+    Eagle.eachNode('attributes', node, function(child) {
 
       var attribute = new Eagle.Attribute();
-          attribute.parse(this);
+          attribute.parse(child);
 
       part.attributes.push(attribute);
 
     });
 
-    $('variant', el).each(function() {
+    Eagle.eachNode('variant', node, function(child) {
 
       var variant = new Eagle.Variant();
-          variant.parse(this);
+          variant.parse(child);
 
       part.variants.push(variant);
 

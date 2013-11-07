@@ -41,31 +41,31 @@ Eagle.define('Eagle.Package', function() {
     'SMD'
   ];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var pack = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       pack[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('description', el).each(function() {
+    Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
-          description.parse(this);
+          description.parse(child);
 
       pack.description = description;
 
     });
 
-    $.each(this.valid_types, function(i, t) {
+    Eagle.each(this.valid_types, function(i, t) {
 
-      $(t.toLowerCase(), el).each(function() {
+      Eagle.eachNode(t.toLowerCase(), node, function(child) {
 
-        var obj = Eagle[t];
+        var obj = Eagle[t],
+            type = new obj();
 
-        var type = new obj();
-            type.parse(this);
+        type.parse(child);
 
         pack.types.push(type);
 

@@ -26,13 +26,13 @@ Eagle.define('Eagle.Settings', function(){
   this['alwaysvectorfont'] = null;
   this['verticaltext'] = 'up';
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var settings = this;
 
-    $('setting', el).each(function() {
+    Eagle.eachNode('setting', node, function(child) {
 
-      $.each(this.attributes, function(i, attribute) {
+      Eagle.each(child.attributes, function(i, attribute) {
         settings[attribute.name] = Eagle.discernType(attribute.value);
       });
 

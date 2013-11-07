@@ -30,18 +30,18 @@ Eagle.define('Eagle.Pass', function() {
   /** CHILDREN **/
   this['param'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var pass = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       pass[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('param', el).each(function() {
+    Eagle.eachNode('param', node, function(child) {
 
       var param = new Eagle.Param();
-          param.parse(this);
+          param.parse(child);
 
       pass.param = param;
 

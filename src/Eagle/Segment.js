@@ -36,17 +36,14 @@ Eagle.define('Eagle.Segment', function() {
 
     var segment = this;
 
-    Ea.each(this.valid_types, function(i, t) {
-      
-      $(t.toLowerCase(), el).each(function() {
+    Eagle.each(this.valid_types, function(i, t) {
+
+      Eagle.eachNode(t.toLowerCase(), node, function(child) {
 
         var obj = Eagle[t];
 
         var type = new obj();
-            type.parse(this);
-
-        if(t == 'Wire')
-          type.draw();
+            type.parse(child);
 
         segment.type = type;
 

@@ -30,11 +30,11 @@ Eagle.define('Eagle.Rectangle', function() {
   this['layer'] = null;
   this['rot'] = 0;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var rectangle = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       rectangle[attribute.name] = Eagle.discernType(attribute.value);
     });
 

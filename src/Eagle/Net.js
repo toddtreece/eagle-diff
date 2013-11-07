@@ -29,18 +29,18 @@ Eagle.define('Eagle.Net', function() {
   /** CHILDREN **/
   this['segment'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var net = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       net[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('segment', el).each(function() {
+    Eagle.eachNode('segment', node, function(child) {
 
       var segment = new Eagle.Segment();
-          segment.parse(this);
+          segment.parse(child);
 
       net.segment = segment;
 

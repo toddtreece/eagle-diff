@@ -32,7 +32,6 @@ Eagle.define('Eagle.Grid', function(){
   this['altdistance'] = null;
   this['altunitdist'] = null;
   this['altunit'] = null;
-
   this['path'] = null;
 
   this.parse = function(node) {
@@ -52,8 +51,7 @@ Eagle.define('Eagle.Grid', function(){
     if(! this.display)
       return false;
 
-    var path = '';
-        width = Eagle.canvas.width,
+    var width = Eagle.canvas.width,
         height = Eagle.canvas.height;
 
     Eagle.beginPath();

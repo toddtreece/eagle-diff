@@ -27,11 +27,11 @@ Eagle.define('Eagle.Vertex', function() {
   this['y'] = null;
   this['curve'] = 0;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var vertex = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       vertex[attribute.name] = Eagle.discernType(attribute.value);
     });
 

@@ -25,11 +25,11 @@ Eagle.define('Eagle.Technology', function() {
   /** VARIABLES **/
   this['name'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var technology = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       technology[attribute.name] = Eagle.discernType(attribute.value);
     });
 

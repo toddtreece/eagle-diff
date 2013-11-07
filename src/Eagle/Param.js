@@ -26,11 +26,11 @@ Eagle.define('Eagle.Param', function() {
   this['name'] = null;
   this['value'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var param = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       param[attribute.name] = Eagle.discernType(attribute.value);
     });
 

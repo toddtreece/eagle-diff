@@ -31,29 +31,29 @@ Eagle.define('Eagle.Library', function() {
   this['symbols'] = [];
   this['devicesets'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var library = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       library[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('description', el).each(function() {
+    Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
-          description.parse(this);
+          description.parse(child);
 
       library.description = description;
 
     });
 
-    $('packages', el).each(function() {
+    Eagle.eachNode('packages', node, function(child) {
 
-      $('package', this).each(function() {
+      Eagle.eachNode('package', child, function(p) {
 
         var pack = new Eagle.Package();
-            pack.parse(this);
+            pack.parse(p);
 
         library.packages.push(pack);
 
@@ -61,12 +61,12 @@ Eagle.define('Eagle.Library', function() {
 
     });
 
-    $('symbols', el).each(function() {
+    Eagle.eachNode('symbols', node, function(child) {
 
-      $('symbol', this).each(function() {
+      Eagle.eachNode('symbol', child, function(s) {
 
         var symbol = new Eagle.Symbol();
-            symbol.parse(this);
+            symbol.parse(s);
 
         library.symbols.push(symbol);
 
@@ -74,12 +74,12 @@ Eagle.define('Eagle.Library', function() {
 
     });
 
-    $('devicesets', el).each(function() {
+    Eagle.eachNode('devicesets', node,function(child) {
 
-      $('deviceset', this).each(function() {
+      Eagle.eachNode('deviceset', child, function(d) {
 
         var deviceset = new Eagle.DeviceSet();
-            deviceset.parse(this);
+            deviceset.parse(d);
 
         library.devicesets.push(deviceset);
 
@@ -91,7 +91,7 @@ Eagle.define('Eagle.Library', function() {
 
   this.getSymbol = function(name) {
 
-    $.each(this.symbols, function(i,symbol) {
+    Eagle.each(this.symbols, function(i, symbol) {
 
       if(symbol.name == name)
         return name;

@@ -35,11 +35,11 @@ Eagle.define('Eagle.SMD', function() {
   this['thermals'] = true;
   this['cream'] = true;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var smd = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       smd[attribute.name] = Eagle.discernType(attribute.value);
     });
 

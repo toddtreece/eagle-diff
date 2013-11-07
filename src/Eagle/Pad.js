@@ -34,11 +34,11 @@ Eagle.define('Eagle.Pad', function() {
   this['thermals'] = true;
   this['first'] = true;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var pad = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       pad[attribute.name] = Eagle.discernType(attribute.value);
     });
 

@@ -32,11 +32,11 @@ Eagle.define('Eagle.Label', function() {
   this['rot'] = 0;
   this['xref'] = false;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var label = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       label[attribute.name] = Eagle.discernType(attribute.value);
     });
 

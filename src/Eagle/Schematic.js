@@ -35,20 +35,20 @@ Eagle.define('Eagle.Schematic', function() {
   this['sheets'] = [];
   this['errors'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var schematic = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       schematic[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('libraries', el).each(function() {
+    Eagle.eachNode('libraries', node, function(child) {
 
-      $('library', this).each(function() {
+      Eagle.eachNode('library', child, function(lib) {
 
         var library = new Eagle.Library();
-            library.parse(this);
+            library.parse(lib);
 
         schematic.libraries.push(library);
 
@@ -56,12 +56,12 @@ Eagle.define('Eagle.Schematic', function() {
 
     });
 
-    $('attributes', el).each(function() {
+    Eagle.eachNode('attributes', node, function(child) {
 
-      $('attribute', this).each(function() {
+      Eagle.eachNode('attribute', child, function(a) {
 
         var attribute = new Eagle.Attribute();
-            attribute.parse(this);
+            attribute.parse(a);
 
         schematic.attributes.push(attribute);
 
@@ -69,12 +69,12 @@ Eagle.define('Eagle.Schematic', function() {
 
     });
 
-    $('variantdefs', el).each(function() {
+    Eagle.eachNode('variantdefs', node, function(child) {
 
-      $('variantdef', this).each(function() {
+      Eagle.eachNode('variantdef', child, function(v) {
 
         var variantdef = new Eagle.VariantDef();
-            variantdef.parse(this);
+            variantdef.parse(v);
 
         schematic.variantdefs.push(variantdef);
 
@@ -82,25 +82,25 @@ Eagle.define('Eagle.Schematic', function() {
 
     });
 
-    $('classes', el).each(function() {
+    Eagle.eachNode('classes', node, function(child) {
 
-      $('class', this).each(function() {
+      Eagle.eachNode('class', child, function(c) {
 
-        var c = new Eagle.Class();
-            c.parse(this);
+        var cl = new Eagle.Class();
+            cl.parse(c);
 
-        schematic.classes.push(c);
+        schematic.classes.push(cl);
 
       });
 
     });
 
-    $('parts', el).each(function() {
+    Eagle.eachNode('parts', node, function(child) {
 
-      $('part', this).each(function() {
+      Eagle.eachNode('part', child, function(p) {
 
         var part = new Eagle.Part();
-            part.parse(this);
+            part.parse(p);
 
         schematic.parts.push(part);
 
@@ -108,12 +108,12 @@ Eagle.define('Eagle.Schematic', function() {
 
     });
 
-    $('sheets', el).each(function() {
+    Eagle.eachNode('sheets', node, function(child) {
 
-      $('sheet', this).each(function() {
+      Eagle.eachNode('sheet', child, function(s) {
 
         var sheet = new Eagle.Sheet();
-            sheet.parse(this);
+            sheet.parse(s);
 
         schematic.sheets.push(sheet);
 
@@ -121,12 +121,12 @@ Eagle.define('Eagle.Schematic', function() {
 
     });
 
-    $('errors', el).each(function() {
+    Eagle.eachNode('errors', node, function(child) {
 
-      $('error', this).each(function() {
+      Eagle.eachNode('error', child, function(e) {
 
         var error = new Eagle.Error();
-            error.parse(this);
+            error.parse(e);
 
         schematic.errors.push(error);
 

@@ -33,18 +33,18 @@ Eagle.define('Eagle.Instance', function() {
   /** CHILDREN **/
   this['attribute'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var instance = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       instance[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('attribute', el).each(function() {
+    Eagle.eachNode('attribute', node, function(child) {
 
       var attribute = new Eagle.Attribute();
-          attribute.parse(this);
+          attribute.parse(child);
 
       instance.attribute = attribute;
 
@@ -53,7 +53,7 @@ Eagle.define('Eagle.Instance', function() {
   };
 
   this.draw = function() {
-
+    //TODO
   };
 
 });

@@ -27,11 +27,11 @@ Eagle.define('Eagle.PinRef', function() {
   this['gate'] = null;
   this['pin'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var pinref = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       pinref[attribute.name] = Eagle.discernType(attribute.value);
     });
 

@@ -100,6 +100,8 @@ var Eagle = {
 
       Eagle.drawing = drawing;
 
+      console.log(drawing);
+
     });
 
   },
@@ -208,7 +210,7 @@ var Eagle = {
 
     } else if(typeof source == 'object') {
 
-      for(key in source) {
+      for(var key in source) {
 
         callback(key, source[key]);
 

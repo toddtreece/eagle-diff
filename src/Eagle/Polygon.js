@@ -35,18 +35,18 @@ Eagle.define('Eagle.Polygon', function() {
   /** CHILDREN **/
   this['vertices'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var polygon = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       polygon[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('vertex', el).each(function() {
+    Eagle.eachNode('vertex', node, function(child) {
 
       var vertex = new Eagle.Vertex();
-          vertex.parse(this);
+          vertex.parse(child);
 
       polygon.vertex.push(vertex);
 

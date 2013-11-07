@@ -30,11 +30,11 @@ Eagle.define('Eagle.Layer', function(){
   this['visible'] = true;
   this['active'] = true;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var layer = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       layer[attribute.name] = Eagle.discernType(attribute.value);
     });
 

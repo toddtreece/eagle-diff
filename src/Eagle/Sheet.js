@@ -29,21 +29,21 @@ Eagle.define('Eagle.Sheet', function() {
   this['busses'] = [];
   this['nets'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var sheet = this;
 
-    $('description', el).each(function() {
+    Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
-          description.parse(this);
+          description.parse(child);
 
       sheet.description = description;
 
     });
 
     /** TODO: what the fuck is plain?
-    $('plain', el).each(function() {
+    Eagle.eachNode('plain', node, function() {
 
       var plain = new Eagle.Plain();
           plain.parse(this);
@@ -52,12 +52,12 @@ Eagle.define('Eagle.Sheet', function() {
 
     }); */
 
-    $('instances', el).each(function() {
+    Eagle.eachNode('instances', node, function(child) {
 
-      $('instance', this).each(function() {
+      Eagle.eachNode('instance', child, function(i) {
 
         var instance = new Eagle.Instance();
-            instance.parse(this);
+            instance.parse(i);
 
         sheet.instances.push(instance);
 
@@ -65,12 +65,12 @@ Eagle.define('Eagle.Sheet', function() {
 
     });
 
-    $('busses', el).each(function() {
+    Eagle.eachNode('busses', node, function(child) {
 
-      $('bus', this).each(function() {
+      Eagle.eachNode('bus', child, function(b) {
 
         var bus = new Eagle.Bus();
-            bus.parse(this);
+            bus.parse(b);
 
         sheet.busses.push(bus);
 
@@ -78,12 +78,12 @@ Eagle.define('Eagle.Sheet', function() {
 
     });
 
-    $('nets', el).each(function() {
+    Eagle.eachNode('nets', node, function(child) {
 
-      $('net', this).each(function() {
+      Eagle.eachNode('net', child, function(n) {
 
         var net = new Eagle.Net();
-            net.parse(this);
+            net.parse(n);
 
         sheet.nets.push(net);
 

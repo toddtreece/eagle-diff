@@ -25,11 +25,11 @@ Eagle.define('Eagle.VariantDef', function(){
   /** VARIABLES **/
   this['name'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var variantdef = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       variantdef[attribute.name] = Eagle.discernType(attribute.value);
     });
 

@@ -33,11 +33,11 @@ Eagle.define('Eagle.Pin', function() {
   this['swaplevel'] = 0;
   this['rot'] = 0;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var pin = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       pin[attribute.name] = Eagle.discernType(attribute.value);
     });
 

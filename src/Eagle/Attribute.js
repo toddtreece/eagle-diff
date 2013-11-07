@@ -30,7 +30,7 @@ Eagle.define('Eagle.Attribute', function(){
   this['size'] = null;
   this['layer'] = null;
   this['font'] = null;
-  this['ratio'] = null
+  this['ratio'] = null;
   this['rot'] = 0;
   this['display'] = 'value';
   this['constant'] = false;

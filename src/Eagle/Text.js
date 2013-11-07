@@ -33,15 +33,15 @@ Eagle.define('Eagle.Text', function() {
   this['align'] = 'bottom-left';
   this['content'] = null;
 
-  this['parse'] = function(el) {
+  this['parse'] = function(node) {
 
     var text = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       text[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    this.content = $(el).html();
+    this.content = node.textContent;
 
   };
 

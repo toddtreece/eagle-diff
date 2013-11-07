@@ -39,31 +39,31 @@ Eagle.define('Eagle.Symbol', function() {
     'Frame'
   ];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var symbol = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       symbol[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('description', el).each(function() {
+    Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
-          description.parse(this);
+          description.parse(child);
 
       symbol.description = description;
 
     });
 
-    $.each(this.valid_types, function(i, t) {
+    Eagle.each(this.valid_types, function(i, t) {
 
-      $(t.toLowerCase(), el).each(function() {
+      Eagle.eachNode(t.toLowerCase(), node, function(child) {
 
         var obj = Eagle[t];
 
         var type = new obj();
-            type.parse(this);
+            type.parse(child);
 
         symbol.types.push(type);
 

@@ -52,7 +52,7 @@ Eagle.define('Eagle.Wire', function() {
       .moveTo(this.x1, this.y1)
       .lineTo(this.x2, this.y2)
       .closePath()
-      .stroke(this.width, 'red');
+      .stroke(this.width, '#000');
 
   };
 

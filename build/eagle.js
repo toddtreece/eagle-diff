@@ -1,4 +1,4 @@
-/*! eagle-diff version 0.0.1 2013-11-07 3:33:15 PM MST */
+/*! eagle-diff version 0.0.1 2013-11-07 3:59:47 PM MST */
 
 /**
  * eagle-diff
@@ -67,6 +67,10 @@ var Eagle = {
 
     this.canvas = document.getElementById(el);
     this.context = this.canvas.getContext('2d');
+
+    this.context.imageSmoothingEnabled = false;
+    this.context.mozImageSmoothingEnabled = false;
+    this.context.webkitImageSmoothingEnabled = false;
 
     Eagle.get(file, function(data) {
       Eagle.xml = data;
@@ -146,7 +150,7 @@ var Eagle = {
     }
 
     // move to the location
-    this.context.moveTo(x, this.canvas.height - y);
+    this.context.moveTo((this.canvas.width / 2) + x, (this.canvas.height / 2) - y);
 
     // store the current location for later
     this.last.x = x;
@@ -167,7 +171,7 @@ var Eagle = {
     }
 
     // move to the location
-    this.context.lineTo(x, this.canvas.height - y);
+    this.context.lineTo((this.canvas.width / 2) + x, (this.canvas.height / 2) - y);
 
     // store the current location for later
     this.last.x = x;
@@ -2639,7 +2643,7 @@ Eagle.define('Eagle.Wire', function() {
       .moveTo(this.x1, this.y1)
       .lineTo(this.x2, this.y2)
       .closePath()
-      .stroke(this.width, 'red');
+      .stroke(this.width, '#000');
 
   };
 

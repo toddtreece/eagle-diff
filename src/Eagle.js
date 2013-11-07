@@ -104,6 +104,22 @@ var Eagle = {
 
   },
 
+  get: function(url, callback) {
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+
+      if (xhr.readyState == 4)
+        callback(xhr.responseText);
+
+    };
+
+    xhr.open('GET', url, true);
+    xhr.send();
+
+  },
+
   beginPath: function() {
 
     this.last.x = 0;
@@ -168,19 +184,11 @@ var Eagle = {
 
   },
 
-  get: function(url, callback) {
+  stroke: function(width, color) {
 
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function() {
-
-      if (xhr.readyState == 4)
-        callback(xhr.responseText);
-
-    };
-
-    xhr.open('GET', url, true);
-    xhr.send();
+    this.context.lineWidth = width;
+    this.context.strokeStyle = color;
+    this.context.stroke();
 
   },
 

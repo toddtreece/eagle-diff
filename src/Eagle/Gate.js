@@ -30,11 +30,11 @@ Eagle.define('Eagle.Gate', function() {
   this['addlevel'] = 'next';
   this['swaplevel'] = 0;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var gate = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       gate[attribute.name] = Eagle.discernType(attribute.value);
     });
 

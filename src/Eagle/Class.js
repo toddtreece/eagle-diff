@@ -31,18 +31,18 @@ Eagle.define('Eagle.Class', function(){
   /** CHILDREN **/
   this['clearance'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var c = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       c[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('clearance', el).each(function() {
+    Eagle.eachNode('clearance', node, function(child) {
 
       var clearance = new Eagle.Clearance();
-          clearance.parse(this);
+          clearance.parse(child);
 
       c.clearance = clearance;
 

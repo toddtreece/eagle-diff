@@ -35,11 +35,11 @@ Eagle.define('Eagle.Frame', function() {
   this['border-right'] = true;
   this['border-bottom'] = true;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var frame = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       frame[attribute.name] = Eagle.discernType(attribute.value);
     });
 

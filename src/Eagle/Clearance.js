@@ -26,11 +26,11 @@ Eagle.define('Eagle.Clearance', function() {
   this['class'] = null;
   this['value'] = 0;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var clearance = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       clearance[attribute.name] = Eagle.discernType(attribute.value);
     });
 

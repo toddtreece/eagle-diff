@@ -35,11 +35,11 @@ Eagle.define('Eagle.Grid', function(){
 
   this['path'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var grid = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       grid[attribute.name] = Eagle.discernType(attribute.value);
     });
 
@@ -53,21 +53,24 @@ Eagle.define('Eagle.Grid', function(){
       return false;
 
     var path = '';
-        width = Eagle.paper.width,
-        height = Eagle.paper.height;
+        width = Eagle.canvas.width,
+        height = Eagle.canvas.height;
 
+    Eagle.beginPath();
 
     for(var y = 0; y < height; y += this.distance) {
-      path += Eagle.moveTo(0,y);
-      path += Eagle.lineTo(width, y);
+      Eagle.moveTo(0,y);
+      Eagle.lineTo(width, y);
     }
 
     for(var x = 0; x < width; x += this.distance) {
-      path += Eagle.moveTo(x, 0);
-      path += Eagle.lineTo(x, height);
+      Eagle.moveTo(x, 0);
+      Eagle.lineTo(x, height);
     }
 
-    Eagle.paper.path(path).attr({'stroke-width': 0.1});
+    Eagle.closePath();
+
+    Eagle.stroke(0.1, '#000');
 
   };
 

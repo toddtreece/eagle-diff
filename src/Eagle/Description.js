@@ -26,15 +26,15 @@ Eagle.define('Eagle.Description', function() {
   this['language'] = 'en';
   this['content'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var description = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       description[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    this.content = $(el).html();
+    this.content = node.textContent;
 
   };
 

@@ -29,11 +29,11 @@ Eagle.define('Eagle.Circle', function() {
   this['width'] = null;
   this['layer'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var circle = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       circle[attribute.name] = Eagle.discernType(attribute.value);
     });
 

@@ -1,4 +1,4 @@
-/*! eagle-diff version 0.0.1 2013-11-07 11:43:17 AM MST */
+/*! eagle-diff version 0.0.1 2013-11-07 12:11:07 PM MST */
 
 /**
  * eagle-diff
@@ -106,6 +106,22 @@ var Eagle = {
 
   },
 
+  get: function(url, callback) {
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+
+      if (xhr.readyState == 4)
+        callback(xhr.responseText);
+
+    };
+
+    xhr.open('GET', url, true);
+    xhr.send();
+
+  },
+
   beginPath: function() {
 
     this.last.x = 0;
@@ -170,19 +186,11 @@ var Eagle = {
 
   },
 
-  get: function(url, callback) {
+  stroke: function(width, color) {
 
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function() {
-
-      if (xhr.readyState == 4)
-        callback(xhr.responseText);
-
-    };
-
-    xhr.open('GET', url, true);
-    xhr.send();
+    this.context.lineWidth = width;
+    this.context.strokeStyle = color;
+    this.context.stroke();
 
   },
 
@@ -253,11 +261,11 @@ Eagle.define('Eagle.Approved', function() {
   /** VARIABLES **/
   this['hash'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var approved = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       approved[attribute.name] = Eagle.discernType(attribute.value);
     });
 
@@ -303,11 +311,11 @@ Eagle.define('Eagle.Attribute', function(){
   this['display'] = 'value';
   this['constant'] = false;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var attribute = this;
 
-    $.each(el.attributes, function(i, attr) {
+    Eagle.each(node.attributes, function(i, attr) {
       attribute[attr.name] = Eagle.discernType(attr.value);
     });
 
@@ -346,18 +354,18 @@ Eagle.define('Eagle.Bus', function() {
   /** CHILDREN **/
   this['segment'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var bus = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       bus[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('segment', el).each(function() {
+    Eagle.eachNode('segment', node, function(child) {
 
       var segment = new Eagle.Segment();
-          segment.parse(this);
+          segment.parse(child);
 
       bus.segment = segment;
 
@@ -399,11 +407,11 @@ Eagle.define('Eagle.Circle', function() {
   this['width'] = null;
   this['layer'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var circle = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       circle[attribute.name] = Eagle.discernType(attribute.value);
     });
 
@@ -445,18 +453,18 @@ Eagle.define('Eagle.Class', function(){
   /** CHILDREN **/
   this['clearance'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var c = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       c[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('clearance', el).each(function() {
+    Eagle.eachNode('clearance', node, function(child) {
 
       var clearance = new Eagle.Clearance();
-          clearance.parse(this);
+          clearance.parse(child);
 
       c.clearance = clearance;
 
@@ -495,11 +503,11 @@ Eagle.define('Eagle.Clearance', function() {
   this['class'] = null;
   this['value'] = 0;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var clearance = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       clearance[attribute.name] = Eagle.discernType(attribute.value);
     });
 
@@ -538,11 +546,11 @@ Eagle.define('Eagle.Connect', function() {
   this['pad'] = null;
   this['route'] = 'all';
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var connect = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       connect[attribute.name] = Eagle.discernType(attribute.value);
     });
 
@@ -579,15 +587,15 @@ Eagle.define('Eagle.Description', function() {
   this['language'] = 'en';
   this['content'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var description = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       description[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    this.content = $(el).html();
+    this.content = node.textContent;
 
   };
 
@@ -626,20 +634,20 @@ Eagle.define('Eagle.Device', function() {
   this['connects'] = [];
   this['technologies'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var device = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       device[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('connects', el).each(function() {
+    Eagle.eachNode('connects', node, function(child) {
 
-      $('connect', this).each(function() {
+      Eagle.eachNode('connect', child, function(con) {
 
         var connect = new Eagle.Connect();
-            connect.parse(this);
+            connect.parse(con);
 
         device.connects.push(connect);
 
@@ -647,12 +655,12 @@ Eagle.define('Eagle.Device', function() {
 
     });
 
-    $('technologies', el).each(function() {
+    Eagle.eachNode('technologies', node, function(child) {
 
-      $('technology', this).each(function() {
+      Eagle.eachNode('technology', child, function(tech) {
 
         var technology = new Eagle.Technology();
-            technology.parse(this);
+            technology.parse(tech);
 
         device.technologies.push(technology);
 
@@ -699,29 +707,29 @@ Eagle.define('Eagle.DeviceSet', function() {
   this['gates'] = [];
   this['devices'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var deviceset = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       deviceset[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('description', el).each(function() {
+    Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
-          description.parse(this);
+          description.parse(child);
 
       deviceset.description = description;
 
     });
 
-    $('gates', el).each(function() {
+    Eagle.eachNode('gates', node, function(child) {
 
-      $('gate', this).each(function() {
+      Eagle.eachNode('gate', child, function(g) {
 
         var gate = new Eagle.Gate();
-            gate.parse(this);
+            gate.parse(g);
 
         deviceset.gates.push(gate);
 
@@ -729,12 +737,12 @@ Eagle.define('Eagle.DeviceSet', function() {
 
     });
 
-    $('devices', el).each(function() {
+    Eagle.eachNode('devices', node, function(child) {
 
-      $('device', this).each(function() {
+      Eagle.eachNode('device', child, function(dev) {
 
         var device = new Eagle.Device();
-            device.parse(this);
+            device.parse(dev);
 
         deviceset.devices.push(device);
 
@@ -782,7 +790,7 @@ Eagle.define('Eagle.Drawing', function() {
 
     var drawing = this;
 
-    Eagle.each('grid', node, function(child) {
+    Eagle.eachNode('grid', node, function(child) {
 
       var grid = new Eagle.Grid();
           grid.parse(child);
@@ -791,7 +799,7 @@ Eagle.define('Eagle.Drawing', function() {
 
     });
 
-    Eagle.each('settings', node, function(child) {
+    Eagle.eachNode('settings', node, function(child) {
 
       var settings = new Eagle.Settings();
           settings.parse(child);
@@ -800,7 +808,7 @@ Eagle.define('Eagle.Drawing', function() {
 
     });
 
-    Eagle.each('schematic', node, function(child) {
+    Eagle.eachNode('schematic', node, function(child) {
 
       var schematic = new Eagle.Schematic();
           schematic.parse(child);
@@ -809,7 +817,7 @@ Eagle.define('Eagle.Drawing', function() {
 
     });
 
-    Eagle.each('board', node, function(child) {
+    Eagle.eachNode('board', node, function(child) {
 
       var board = new Eagle.Board();
           board.parse(child);
@@ -818,9 +826,9 @@ Eagle.define('Eagle.Drawing', function() {
 
     });
 
-    Eagle.each('layers', node, function(child) {
+    Eagle.eachNode('layers', node, function(child) {
 
-      Eagle.each('layer', child, function(lay) {
+      Eagle.eachNode('layer', child, function(lay) {
 
         var layer = new Eagle.Layer();
             layer.parse(lay);
@@ -873,11 +881,11 @@ Eagle.define('Eagle.Frame', function() {
   this['border-right'] = true;
   this['border-bottom'] = true;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var frame = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       frame[attribute.name] = Eagle.discernType(attribute.value);
     });
 
@@ -918,11 +926,11 @@ Eagle.define('Eagle.Gate', function() {
   this['addlevel'] = 'next';
   this['swaplevel'] = 0;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var gate = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       gate[attribute.name] = Eagle.discernType(attribute.value);
     });
 
@@ -968,11 +976,11 @@ Eagle.define('Eagle.Grid', function(){
 
   this['path'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var grid = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       grid[attribute.name] = Eagle.discernType(attribute.value);
     });
 
@@ -986,21 +994,24 @@ Eagle.define('Eagle.Grid', function(){
       return false;
 
     var path = '';
-        width = Eagle.paper.width,
-        height = Eagle.paper.height;
+        width = Eagle.canvas.width,
+        height = Eagle.canvas.height;
 
+    Eagle.beginPath();
 
     for(var y = 0; y < height; y += this.distance) {
-      path += Eagle.moveTo(0,y);
-      path += Eagle.lineTo(width, y);
+      Eagle.moveTo(0,y);
+      Eagle.lineTo(width, y);
     }
 
     for(var x = 0; x < width; x += this.distance) {
-      path += Eagle.moveTo(x, 0);
-      path += Eagle.lineTo(x, height);
+      Eagle.moveTo(x, 0);
+      Eagle.lineTo(x, height);
     }
 
-    Eagle.paper.path(path).attr({'stroke-width': 0.1});
+    Eagle.closePath();
+
+    Eagle.stroke(0.1, '#000');
 
   };
 

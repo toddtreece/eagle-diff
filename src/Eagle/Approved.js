@@ -25,11 +25,11 @@ Eagle.define('Eagle.Approved', function() {
   /** VARIABLES **/
   this['hash'] = null;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var approved = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       approved[attribute.name] = Eagle.discernType(attribute.value);
     });
 

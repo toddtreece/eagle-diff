@@ -30,20 +30,20 @@ Eagle.define('Eagle.Device', function() {
   this['connects'] = [];
   this['technologies'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var device = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       device[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('connects', el).each(function() {
+    Eagle.eachNode('connects', node, function(child) {
 
-      $('connect', this).each(function() {
+      Eagle.eachNode('connect', child, function(con) {
 
         var connect = new Eagle.Connect();
-            connect.parse(this);
+            connect.parse(con);
 
         device.connects.push(connect);
 
@@ -51,12 +51,12 @@ Eagle.define('Eagle.Device', function() {
 
     });
 
-    $('technologies', el).each(function() {
+    Eagle.eachNode('technologies', node, function(child) {
 
-      $('technology', this).each(function() {
+      Eagle.eachNode('technology', child, function(tech) {
 
         var technology = new Eagle.Technology();
-            technology.parse(this);
+            technology.parse(tech);
 
         device.technologies.push(technology);
 

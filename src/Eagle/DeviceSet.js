@@ -32,29 +32,29 @@ Eagle.define('Eagle.DeviceSet', function() {
   this['gates'] = [];
   this['devices'] = [];
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var deviceset = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       deviceset[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    $('description', el).each(function() {
+    Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
-          description.parse(this);
+          description.parse(child);
 
       deviceset.description = description;
 
     });
 
-    $('gates', el).each(function() {
+    Eagle.eachNode('gates', node, function(child) {
 
-      $('gate', this).each(function() {
+      Eagle.eachNode('gate', child, function(g) {
 
         var gate = new Eagle.Gate();
-            gate.parse(this);
+            gate.parse(g);
 
         deviceset.gates.push(gate);
 
@@ -62,12 +62,12 @@ Eagle.define('Eagle.DeviceSet', function() {
 
     });
 
-    $('devices', el).each(function() {
+    Eagle.eachNode('devices', node, function(child) {
 
-      $('device', this).each(function() {
+      Eagle.eachNode('device', child, function(dev) {
 
         var device = new Eagle.Device();
-            device.parse(this);
+            device.parse(dev);
 
         deviceset.devices.push(device);
 

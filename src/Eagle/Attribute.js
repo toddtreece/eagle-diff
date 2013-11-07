@@ -35,11 +35,11 @@ Eagle.define('Eagle.Attribute', function(){
   this['display'] = 'value';
   this['constant'] = false;
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var attribute = this;
 
-    $.each(el.attributes, function(i, attr) {
+    Eagle.each(node.attributes, function(i, attr) {
       attribute[attr.name] = Eagle.discernType(attr.value);
     });
 

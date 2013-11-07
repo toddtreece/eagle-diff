@@ -28,11 +28,11 @@ Eagle.define('Eagle.Connect', function() {
   this['pad'] = null;
   this['route'] = 'all';
 
-  this.parse = function(el) {
+  this.parse = function(node) {
 
     var connect = this;
 
-    $.each(el.attributes, function(i, attribute) {
+    Eagle.each(node.attributes, function(i, attribute) {
       connect[attribute.name] = Eagle.discernType(attribute.value);
     });
 

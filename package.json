@@ -11,8 +11,7 @@
     }
   ],
   "scripts": {
-    "start": "./bin/compile && ./bin/test-server",
-    "compile": "./bin/compile"
+    "start": "grunt && ./bin/test-server"
   },
   "repository": {
     "type": "git",
@@ -25,7 +24,6 @@
     "processing.js"
   ],
   "dependencies": {
-    "node-minify": "*",
     "connect": "*"
   },
   "analyze": false,

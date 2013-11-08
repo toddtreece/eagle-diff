@@ -32,10 +32,12 @@ module.exports = function(grunt) {
         tasks: ['default']
       }
     },
-    serve: {
-      default: {
-        path: 'test/',
-        port: 8080
+    connect: {
+      server: {
+        options: {
+          port: 8080,
+          base: 'test'
+        }
       }
     }
   });
@@ -44,26 +46,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
   // only compress and concat by default
   grunt.registerTask('default', ['jshint', 'uglify', 'concat']);
 
   // start a local webserver
-  grunt.registerMultiTask('serve', function() {
-
-    grunt.task.run('default');
-
-    var connect = require('connect'),
-        path = this.data.path;
-
-    connect.createServer(
-      connect.static(path)
-    ).listen(this.data.port);
-
-    console.log('Test server running at http://localhost:' + this.data.port + '/');
-
-    grunt.task.run('watch');
-
-  });
+  grunt.registerTask('serve', ['default', 'connect', 'watch']);
 
 };

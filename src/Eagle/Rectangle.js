@@ -1,7 +1,7 @@
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *

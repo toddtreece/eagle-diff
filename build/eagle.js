@@ -1,9 +1,9 @@
-/*! eagle-diff version 0.0.1 2013-11-07 8:57:20 PM MST */
+/*! eagle-diff version 0.0.1 2013-11-07 9:26:07 PM MST */
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -238,8 +238,8 @@ var Eagle = {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -283,8 +283,8 @@ Eagle.define('Eagle.Approved', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -338,8 +338,8 @@ Eagle.define('Eagle.Attribute', function(){
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -396,8 +396,8 @@ Eagle.define('Eagle.Bus', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -445,8 +445,8 @@ Eagle.define('Eagle.Circle', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -506,8 +506,8 @@ Eagle.define('Eagle.Class', function(){
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -552,8 +552,8 @@ Eagle.define('Eagle.Clearance', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -600,8 +600,8 @@ Eagle.define('Eagle.Connect', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -648,8 +648,8 @@ Eagle.define('Eagle.Description', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -726,8 +726,8 @@ Eagle.define('Eagle.Device', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -816,8 +816,8 @@ Eagle.define('Eagle.DeviceSet', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -925,8 +925,8 @@ Eagle.define('Eagle.Drawing', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -980,8 +980,8 @@ Eagle.define('Eagle.Frame', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1030,8 +1030,8 @@ Eagle.define('Eagle.Gate', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1112,8 +1112,8 @@ Eagle.define('Eagle.Grid', function(){
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1159,8 +1159,8 @@ Eagle.define('Eagle.Hole', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1226,8 +1226,8 @@ Eagle.define('Eagle.Instance', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1274,8 +1274,8 @@ Eagle.define('Eagle.Junction', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1329,8 +1329,8 @@ Eagle.define('Eagle.Label', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1379,8 +1379,8 @@ Eagle.define('Eagle.Layer', function(){
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1497,8 +1497,8 @@ Eagle.define('Eagle.Library', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1556,8 +1556,8 @@ Eagle.define('Eagle.Net', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1643,8 +1643,8 @@ Eagle.define('Eagle.Package', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1697,8 +1697,8 @@ Eagle.define('Eagle.Pad', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1743,8 +1743,8 @@ Eagle.define('Eagle.Param', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1818,8 +1818,8 @@ Eagle.define('Eagle.Part', function(){
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1878,8 +1878,8 @@ Eagle.define('Eagle.Pass', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1931,8 +1931,8 @@ Eagle.define('Eagle.Pin', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -1982,8 +1982,8 @@ Eagle.define('Eagle.PinRef', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2047,8 +2047,8 @@ Eagle.define('Eagle.Polygon', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2097,8 +2097,8 @@ Eagle.define('Eagle.Rectangle', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2152,8 +2152,8 @@ Eagle.define('Eagle.SMD', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2306,8 +2306,8 @@ Eagle.define('Eagle.Schematic', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2366,8 +2366,8 @@ Eagle.define('Eagle.Segment', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2417,8 +2417,8 @@ Eagle.define('Eagle.Settings', function(){
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2519,8 +2519,8 @@ Eagle.define('Eagle.Sheet', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2604,8 +2604,8 @@ Eagle.define('Eagle.Symbol', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2649,8 +2649,8 @@ Eagle.define('Eagle.Technology', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2704,8 +2704,8 @@ Eagle.define('Eagle.Text', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2752,8 +2752,8 @@ Eagle.define('Eagle.Variant', function(){
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2797,8 +2797,8 @@ Eagle.define('Eagle.VariantDef', function(){
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *
@@ -2844,8 +2844,8 @@ Eagle.define('Eagle.Vertex', function() {
 
 /**
  * eagle-diff
- * Copyright 2012 Todd Treece
- * todd@sparkfun.com
+ * Copyright 2012-2013 Todd Treece
+ * todd@uniontownlabs.org
  *
  * This file is part of eagle-diff.
  *

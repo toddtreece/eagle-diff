@@ -42,17 +42,26 @@ Eagle.define('Eagle.Wire', function() {
       wire[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    this.draw();
-
   };
 
   this.draw = function() {
 
+    var layer = Eagle.drawing.getLayer(this.layer);
+
+    if(! layer)
+      return;
+
+    if(! layer.visible)
+      return;
+
+    if(! layer.active)
+      return;
+
     Eagle.beginPath()
-      .moveTo(this.x1, this.y1)
-      .lineTo(this.x2, this.y2)
+      .moveTo(this.x1 * 2, this.y1 * 2)
+      .lineTo(this.x2 * 2, this.y2 * 2)
       .closePath()
-      .stroke(this.width, '#000');
+      .stroke(this.width * 2, '#000');
 
   };
 

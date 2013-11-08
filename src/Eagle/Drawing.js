@@ -33,6 +33,19 @@ Eagle.define('Eagle.Drawing', function() {
 
     var drawing = this;
 
+    Eagle.eachNode('layers', node, function(child) {
+
+      Eagle.eachNode('layer', child, function(lay) {
+
+        var layer = new Eagle.Layer();
+            layer.parse(lay);
+
+        drawing.layers.push(layer);
+
+      });
+
+    });
+
     Eagle.eachNode('grid', node, function(child) {
 
       var grid = new Eagle.Grid();
@@ -69,18 +82,20 @@ Eagle.define('Eagle.Drawing', function() {
 
     });
 
-    Eagle.eachNode('layers', node, function(child) {
+  };
 
-      Eagle.eachNode('layer', child, function(lay) {
+  this.getLayer = function(id) {
 
-        var layer = new Eagle.Layer();
-            layer.parse(lay);
+    var layer = false;
 
-        drawing.layers.push(layer);
+    Eagle.each(this.layers, function(i, lay) {
 
-      });
+      if(lay.number == id)
+        layer = lay;
 
     });
+
+    return layer;
 
   };
 

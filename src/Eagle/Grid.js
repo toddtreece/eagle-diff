@@ -57,7 +57,7 @@ Eagle.define('Eagle.Grid', function(){
     Eagle.beginPath();
 
     for(var y = 0; y < height; y += this.distance) {
-      Eagle.moveTo(0,y);
+      Eagle.moveTo(0, y);
       Eagle.lineTo(width, y);
     }
 

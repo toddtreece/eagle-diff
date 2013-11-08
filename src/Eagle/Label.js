@@ -42,5 +42,9 @@ Eagle.define('Eagle.Label', function() {
 
   };
 
+  this.draw = function() {
+    // TODO
+  };
+
 });
 

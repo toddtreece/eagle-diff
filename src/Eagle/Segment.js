@@ -47,6 +47,8 @@ Eagle.define('Eagle.Segment', function() {
 
         segment.type = type;
 
+        segment.type.draw();
+
       });
 
     });

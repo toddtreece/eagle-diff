@@ -1,4 +1,4 @@
-/*! eagle-diff version 0.0.1 2013-11-07 3:59:47 PM MST */
+/*! eagle-diff version 0.0.1 2013-11-07 5:03:26 PM MST */
 
 /**
  * eagle-diff
@@ -101,12 +101,8 @@ var Eagle = {
 
       Eagle.clear();
 
-      var drawing = new Eagle.Drawing();
-          drawing.parse(node);
-
-      Eagle.drawing = drawing;
-
-      console.log(drawing);
+      Eagle.drawing = new Eagle.Drawing();
+      Eagle.drawing.parse(node);
 
     });
 
@@ -796,6 +792,19 @@ Eagle.define('Eagle.Drawing', function() {
 
     var drawing = this;
 
+    Eagle.eachNode('layers', node, function(child) {
+
+      Eagle.eachNode('layer', child, function(lay) {
+
+        var layer = new Eagle.Layer();
+            layer.parse(lay);
+
+        drawing.layers.push(layer);
+
+      });
+
+    });
+
     Eagle.eachNode('grid', node, function(child) {
 
       var grid = new Eagle.Grid();
@@ -832,18 +841,20 @@ Eagle.define('Eagle.Drawing', function() {
 
     });
 
-    Eagle.eachNode('layers', node, function(child) {
+  };
 
-      Eagle.eachNode('layer', child, function(lay) {
+  this.getLayer = function(id) {
 
-        var layer = new Eagle.Layer();
-            layer.parse(lay);
+    var layer = false;
 
-        drawing.layers.push(layer);
+    Eagle.each(this.layers, function(i, lay) {
 
-      });
+      if(lay.number == id)
+        layer = lay;
 
     });
+
+    return layer;
 
   };
 
@@ -1004,7 +1015,7 @@ Eagle.define('Eagle.Grid', function(){
     Eagle.beginPath();
 
     for(var y = 0; y < height; y += this.distance) {
-      Eagle.moveTo(0,y);
+      Eagle.moveTo(0, y);
       Eagle.lineTo(width, y);
     }
 
@@ -1163,6 +1174,10 @@ Eagle.define('Eagle.Junction', function() {
 
   };
 
+  this.draw = function() {
+    // TODO
+  };
+
 });
 
 
@@ -1208,6 +1223,10 @@ Eagle.define('Eagle.Label', function() {
       label[attribute.name] = Eagle.discernType(attribute.value);
     });
 
+  };
+
+  this.draw = function() {
+    // TODO
   };
 
 });
@@ -1795,6 +1814,10 @@ Eagle.define('Eagle.PinRef', function() {
 
   };
 
+  this.draw = function() {
+    // TODO
+  };
+
 });
 
 
@@ -2142,6 +2165,8 @@ Eagle.define('Eagle.Segment', function() {
             type.parse(child);
 
         segment.type = type;
+
+        segment.type.draw();
 
       });
 
@@ -2633,17 +2658,26 @@ Eagle.define('Eagle.Wire', function() {
       wire[attribute.name] = Eagle.discernType(attribute.value);
     });
 
-    this.draw();
-
   };
 
   this.draw = function() {
 
+    var layer = Eagle.drawing.getLayer(this.layer);
+
+    if(! layer)
+      return;
+
+    if(! layer.visible)
+      return;
+
+    if(! layer.active)
+      return;
+
     Eagle.beginPath()
-      .moveTo(this.x1, this.y1)
-      .lineTo(this.x2, this.y2)
+      .moveTo(this.x1 * 2, this.y1 * 2)
+      .lineTo(this.x2 * 2, this.y2 * 2)
       .closePath()
-      .stroke(this.width, '#000');
+      .stroke(this.width * 2, '#000');
 
   };
 

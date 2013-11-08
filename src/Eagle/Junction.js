@@ -36,5 +36,9 @@ Eagle.define('Eagle.Junction', function() {
 
   };
 
+  this.draw = function() {
+    // TODO
+  };
+
 });
 

@@ -99,12 +99,8 @@ var Eagle = {
 
       Eagle.clear();
 
-      var drawing = new Eagle.Drawing();
-          drawing.parse(node);
-
-      Eagle.drawing = drawing;
-
-      console.log(drawing);
+      Eagle.drawing = new Eagle.Drawing();
+      Eagle.drawing.parse(node);
 
     });
 

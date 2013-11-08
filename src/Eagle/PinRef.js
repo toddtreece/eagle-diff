@@ -37,5 +37,9 @@ Eagle.define('Eagle.PinRef', function() {
 
   };
 
+  this.draw = function() {
+    // TODO
+  };
+
 });
 

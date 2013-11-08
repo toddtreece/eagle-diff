@@ -32,7 +32,12 @@ Eagle.define('Eagle.Vertex', function() {
     var vertex = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       vertex[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

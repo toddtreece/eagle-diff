@@ -35,7 +35,12 @@ Eagle.define('Eagle.Gate', function() {
     var gate = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       gate[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

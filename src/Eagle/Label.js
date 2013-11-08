@@ -37,13 +37,17 @@ Eagle.define('Eagle.Label', function() {
     var label = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       label[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
 
   this.draw = function() {
-    // TODO
   };
 
 });

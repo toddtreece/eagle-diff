@@ -36,6 +36,7 @@ Eagle.define('Eagle.Sheet', function() {
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = sheet;
           description.parse(child);
 
       sheet.description = description;
@@ -57,6 +58,7 @@ Eagle.define('Eagle.Sheet', function() {
       Eagle.eachNode('instance', child, function(i) {
 
         var instance = new Eagle.Instance();
+            instance.parent = sheet;
             instance.parse(i);
 
         sheet.instances.push(instance);
@@ -70,6 +72,7 @@ Eagle.define('Eagle.Sheet', function() {
       Eagle.eachNode('bus', child, function(b) {
 
         var bus = new Eagle.Bus();
+            bus.parent = sheet;
             bus.parse(b);
 
         sheet.busses.push(bus);
@@ -83,6 +86,7 @@ Eagle.define('Eagle.Sheet', function() {
       Eagle.eachNode('net', child, function(n) {
 
         var net = new Eagle.Net();
+            net.parent = sheet;
             net.parse(n);
 
         sheet.nets.push(net);

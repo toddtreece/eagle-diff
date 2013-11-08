@@ -38,7 +38,12 @@ Eagle.define('Eagle.Text', function() {
     var text = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       text[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     this.content = node.textContent;

@@ -32,7 +32,12 @@ Eagle.define('Eagle.PinRef', function() {
     var pinref = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pinref[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

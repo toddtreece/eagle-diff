@@ -39,7 +39,12 @@ Eagle.define('Eagle.Wire', function() {
     var wire = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       wire[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

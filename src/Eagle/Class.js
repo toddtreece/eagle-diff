@@ -33,18 +33,24 @@ Eagle.define('Eagle.Class', function(){
 
   this.parse = function(node) {
 
-    var c = this;
+    var cls = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
-      c[attribute.name] = Eagle.discernType(attribute.value);
+
+      if(attribute.nodeType == 2)
+        return;
+
+      cls[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('clearance', node, function(child) {
 
       var clearance = new Eagle.Clearance();
+          clearance.parent = cls;
           clearance.parse(child);
 
-      c.clearance = clearance;
+      cls.clearance = clearance;
 
     });
 

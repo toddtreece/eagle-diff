@@ -39,7 +39,12 @@ Eagle.define('Eagle.Pad', function() {
     var pad = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pad[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

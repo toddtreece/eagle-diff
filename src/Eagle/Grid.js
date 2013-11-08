@@ -39,7 +39,12 @@ Eagle.define('Eagle.Grid', function(){
     var grid = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       grid[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     //grid.draw();

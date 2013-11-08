@@ -46,12 +46,18 @@ Eagle.define('Eagle.Package', function() {
     var pack = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pack[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = pack;
           description.parse(child);
 
       pack.description = description;
@@ -65,6 +71,7 @@ Eagle.define('Eagle.Package', function() {
         var obj = Eagle[t],
             type = new obj();
 
+        type.parent = pack;
         type.parse(child);
 
         pack.types.push(type);

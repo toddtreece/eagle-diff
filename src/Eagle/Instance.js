@@ -38,12 +38,18 @@ Eagle.define('Eagle.Instance', function() {
     var instance = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       instance[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('attribute', node, function(child) {
 
       var attribute = new Eagle.Attribute();
+          attribute.parent = instance;
           attribute.parse(child);
 
       instance.attribute = attribute;

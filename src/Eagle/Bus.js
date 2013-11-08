@@ -33,12 +33,18 @@ Eagle.define('Eagle.Bus', function() {
     var bus = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       bus[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('segment', node, function(child) {
 
       var segment = new Eagle.Segment();
+          segment.parent = bus;
           segment.parse(child);
 
       bus.segment = segment;

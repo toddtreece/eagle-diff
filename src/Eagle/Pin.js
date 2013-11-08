@@ -38,7 +38,12 @@ Eagle.define('Eagle.Pin', function() {
     var pin = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pin[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

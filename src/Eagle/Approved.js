@@ -30,7 +30,12 @@ Eagle.define('Eagle.Approved', function() {
     var approved = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       approved[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

@@ -35,7 +35,12 @@ Eagle.define('Eagle.Layer', function(){
     var layer = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       layer[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

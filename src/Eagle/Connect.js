@@ -33,7 +33,12 @@ Eagle.define('Eagle.Connect', function() {
     var connect = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       connect[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

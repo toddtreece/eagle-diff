@@ -31,14 +31,17 @@ Eagle.define('Eagle.Junction', function() {
     var junction = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       junction[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
 
-  this.draw = function() {
-    // TODO
-  };
+  this.draw = function() {};
 
 });
 

@@ -40,7 +40,12 @@ Eagle.define('Eagle.Schematic', function() {
     var schematic = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       schematic[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('libraries', node, function(child) {
@@ -48,6 +53,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('library', child, function(lib) {
 
         var library = new Eagle.Library();
+            library.parent = schematic;
             library.parse(lib);
 
         schematic.libraries.push(library);
@@ -61,6 +67,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('attribute', child, function(a) {
 
         var attribute = new Eagle.Attribute();
+            attribute.parent = schematic;
             attribute.parse(a);
 
         schematic.attributes.push(attribute);
@@ -74,6 +81,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('variantdef', child, function(v) {
 
         var variantdef = new Eagle.VariantDef();
+            variantdef.parent = schematic;
             variantdef.parse(v);
 
         schematic.variantdefs.push(variantdef);
@@ -87,6 +95,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('class', child, function(c) {
 
         var cl = new Eagle.Class();
+            cl.parent = schematic;
             cl.parse(c);
 
         schematic.classes.push(cl);
@@ -100,6 +109,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('part', child, function(p) {
 
         var part = new Eagle.Part();
+            part.parent = schematic;
             part.parse(p);
 
         schematic.parts.push(part);
@@ -113,6 +123,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('sheet', child, function(s) {
 
         var sheet = new Eagle.Sheet();
+            sheet.parent = schematic;
             sheet.parse(s);
 
         schematic.sheets.push(sheet);
@@ -126,6 +137,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('error', child, function(e) {
 
         var error = new Eagle.Error();
+            error.parent = schematic;
             error.parse(e);
 
         schematic.errors.push(error);

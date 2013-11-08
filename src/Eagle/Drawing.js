@@ -38,6 +38,7 @@ Eagle.define('Eagle.Drawing', function() {
       Eagle.eachNode('layer', child, function(lay) {
 
         var layer = new Eagle.Layer();
+            layer.parent = drawing;
             layer.parse(lay);
 
         drawing.layers.push(layer);
@@ -49,6 +50,7 @@ Eagle.define('Eagle.Drawing', function() {
     Eagle.eachNode('grid', node, function(child) {
 
       var grid = new Eagle.Grid();
+          grid.parent = drawing;
           grid.parse(child);
 
       drawing.grid = grid;
@@ -58,6 +60,7 @@ Eagle.define('Eagle.Drawing', function() {
     Eagle.eachNode('settings', node, function(child) {
 
       var settings = new Eagle.Settings();
+          settings.parent = drawing;
           settings.parse(child);
 
       drawing.settings = settings;
@@ -67,6 +70,7 @@ Eagle.define('Eagle.Drawing', function() {
     Eagle.eachNode('schematic', node, function(child) {
 
       var schematic = new Eagle.Schematic();
+          schematic.parent = drawing;
           schematic.parse(child);
 
       drawing.schematic = schematic;
@@ -76,6 +80,7 @@ Eagle.define('Eagle.Drawing', function() {
     Eagle.eachNode('board', node, function(child) {
 
       var board = new Eagle.Board();
+          board.parent = drawing;
           board.parse(child);
 
       drawing.board = board;

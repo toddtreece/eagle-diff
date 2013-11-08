@@ -1,4 +1,4 @@
-/*! eagle-diff version 0.0.1 2013-11-07 5:03:26 PM MST */
+/*! eagle-diff version 0.0.1 2013-11-07 8:57:20 PM MST */
 
 /**
  * eagle-diff
@@ -268,7 +268,12 @@ Eagle.define('Eagle.Approved', function() {
     var approved = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       approved[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -318,7 +323,12 @@ Eagle.define('Eagle.Attribute', function(){
     var attribute = this;
 
     Eagle.each(node.attributes, function(i, attr) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       attribute[attr.name] = Eagle.discernType(attr.value);
+
     });
 
   };
@@ -361,12 +371,18 @@ Eagle.define('Eagle.Bus', function() {
     var bus = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       bus[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('segment', node, function(child) {
 
       var segment = new Eagle.Segment();
+          segment.parent = bus;
           segment.parse(child);
 
       bus.segment = segment;
@@ -414,7 +430,12 @@ Eagle.define('Eagle.Circle', function() {
     var circle = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       circle[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -457,18 +478,24 @@ Eagle.define('Eagle.Class', function(){
 
   this.parse = function(node) {
 
-    var c = this;
+    var cls = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
-      c[attribute.name] = Eagle.discernType(attribute.value);
+
+      if(attribute.nodeType == 2)
+        return;
+
+      cls[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('clearance', node, function(child) {
 
       var clearance = new Eagle.Clearance();
+          clearance.parent = cls;
           clearance.parse(child);
 
-      c.clearance = clearance;
+      cls.clearance = clearance;
 
     });
 
@@ -510,7 +537,12 @@ Eagle.define('Eagle.Clearance', function() {
     var clearance = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       clearance[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -553,7 +585,12 @@ Eagle.define('Eagle.Connect', function() {
     var connect = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       connect[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -594,7 +631,12 @@ Eagle.define('Eagle.Description', function() {
     var description = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       description[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     this.content = node.textContent;
@@ -641,7 +683,12 @@ Eagle.define('Eagle.Device', function() {
     var device = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       device[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('connects', node, function(child) {
@@ -649,6 +696,7 @@ Eagle.define('Eagle.Device', function() {
       Eagle.eachNode('connect', child, function(con) {
 
         var connect = new Eagle.Connect();
+            connect.parent = device;
             connect.parse(con);
 
         device.connects.push(connect);
@@ -662,6 +710,7 @@ Eagle.define('Eagle.Device', function() {
       Eagle.eachNode('technology', child, function(tech) {
 
         var technology = new Eagle.Technology();
+            technology.parent = device;
             technology.parse(tech);
 
         device.technologies.push(technology);
@@ -714,12 +763,18 @@ Eagle.define('Eagle.DeviceSet', function() {
     var deviceset = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       deviceset[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = deviceset;
           description.parse(child);
 
       deviceset.description = description;
@@ -731,6 +786,7 @@ Eagle.define('Eagle.DeviceSet', function() {
       Eagle.eachNode('gate', child, function(g) {
 
         var gate = new Eagle.Gate();
+            gate.parent = deviceset;
             gate.parse(g);
 
         deviceset.gates.push(gate);
@@ -744,6 +800,7 @@ Eagle.define('Eagle.DeviceSet', function() {
       Eagle.eachNode('device', child, function(dev) {
 
         var device = new Eagle.Device();
+            device.parent = deviceset;
             device.parse(dev);
 
         deviceset.devices.push(device);
@@ -797,6 +854,7 @@ Eagle.define('Eagle.Drawing', function() {
       Eagle.eachNode('layer', child, function(lay) {
 
         var layer = new Eagle.Layer();
+            layer.parent = drawing;
             layer.parse(lay);
 
         drawing.layers.push(layer);
@@ -808,6 +866,7 @@ Eagle.define('Eagle.Drawing', function() {
     Eagle.eachNode('grid', node, function(child) {
 
       var grid = new Eagle.Grid();
+          grid.parent = drawing;
           grid.parse(child);
 
       drawing.grid = grid;
@@ -817,6 +876,7 @@ Eagle.define('Eagle.Drawing', function() {
     Eagle.eachNode('settings', node, function(child) {
 
       var settings = new Eagle.Settings();
+          settings.parent = drawing;
           settings.parse(child);
 
       drawing.settings = settings;
@@ -826,6 +886,7 @@ Eagle.define('Eagle.Drawing', function() {
     Eagle.eachNode('schematic', node, function(child) {
 
       var schematic = new Eagle.Schematic();
+          schematic.parent = drawing;
           schematic.parse(child);
 
       drawing.schematic = schematic;
@@ -835,6 +896,7 @@ Eagle.define('Eagle.Drawing', function() {
     Eagle.eachNode('board', node, function(child) {
 
       var board = new Eagle.Board();
+          board.parent = drawing;
           board.parse(child);
 
       drawing.board = board;
@@ -903,7 +965,12 @@ Eagle.define('Eagle.Frame', function() {
     var frame = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       frame[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -948,7 +1015,12 @@ Eagle.define('Eagle.Gate', function() {
     var gate = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       gate[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -997,7 +1069,12 @@ Eagle.define('Eagle.Grid', function(){
     var grid = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       grid[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     //grid.draw();
@@ -1067,7 +1144,12 @@ Eagle.define('Eagle.Hole', function() {
     var hole = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       hole[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -1115,12 +1197,18 @@ Eagle.define('Eagle.Instance', function() {
     var instance = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       instance[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('attribute', node, function(child) {
 
       var attribute = new Eagle.Attribute();
+          attribute.parent = instance;
           attribute.parse(child);
 
       instance.attribute = attribute;
@@ -1169,14 +1257,17 @@ Eagle.define('Eagle.Junction', function() {
     var junction = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       junction[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
 
-  this.draw = function() {
-    // TODO
-  };
+  this.draw = function() {};
 
 });
 
@@ -1220,13 +1311,17 @@ Eagle.define('Eagle.Label', function() {
     var label = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       label[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
 
   this.draw = function() {
-    // TODO
   };
 
 });
@@ -1269,7 +1364,12 @@ Eagle.define('Eagle.Layer', function(){
     var layer = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       layer[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -1315,12 +1415,18 @@ Eagle.define('Eagle.Library', function() {
     var library = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       library[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = library;
           description.parse(child);
 
       library.description = description;
@@ -1332,6 +1438,7 @@ Eagle.define('Eagle.Library', function() {
       Eagle.eachNode('package', child, function(p) {
 
         var pack = new Eagle.Package();
+            pack.parent = library;
             pack.parse(p);
 
         library.packages.push(pack);
@@ -1345,6 +1452,7 @@ Eagle.define('Eagle.Library', function() {
       Eagle.eachNode('symbol', child, function(s) {
 
         var symbol = new Eagle.Symbol();
+            symbol.parent = library;
             symbol.parse(s);
 
         library.symbols.push(symbol);
@@ -1358,6 +1466,7 @@ Eagle.define('Eagle.Library', function() {
       Eagle.eachNode('deviceset', child, function(d) {
 
         var deviceset = new Eagle.DeviceSet();
+            deviceset.parent = library;
             deviceset.parse(d);
 
         library.devicesets.push(deviceset);
@@ -1370,12 +1479,16 @@ Eagle.define('Eagle.Library', function() {
 
   this.getSymbol = function(name) {
 
-    Eagle.each(this.symbols, function(i, symbol) {
+    var symbol = false;
 
-      if(symbol.name == name)
-        return name;
+    Eagle.each(this.symbols, function(i, sym) {
+
+      if(sym.name == name)
+        symbol = sym;
 
     });
+
+    return symbol;
 
   };
 
@@ -1418,12 +1531,18 @@ Eagle.define('Eagle.Net', function() {
     var net = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       net[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('segment', node, function(child) {
 
       var segment = new Eagle.Segment();
+          segment.parent = net;
           segment.parse(child);
 
       net.segment = segment;
@@ -1483,12 +1602,18 @@ Eagle.define('Eagle.Package', function() {
     var pack = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pack[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = pack;
           description.parse(child);
 
       pack.description = description;
@@ -1502,6 +1627,7 @@ Eagle.define('Eagle.Package', function() {
         var obj = Eagle[t],
             type = new obj();
 
+        type.parent = pack;
         type.parse(child);
 
         pack.types.push(type);
@@ -1556,7 +1682,12 @@ Eagle.define('Eagle.Pad', function() {
     var pad = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pad[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -1597,7 +1728,12 @@ Eagle.define('Eagle.Param', function() {
     var param = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       param[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -1646,13 +1782,19 @@ Eagle.define('Eagle.Part', function(){
     var part = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       part[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
 
     Eagle.eachNode('attributes', node, function(child) {
 
       var attribute = new Eagle.Attribute();
+          attribute.parent = part;
           attribute.parse(child);
 
       part.attributes.push(attribute);
@@ -1662,6 +1804,7 @@ Eagle.define('Eagle.Part', function(){
     Eagle.eachNode('variant', node, function(child) {
 
       var variant = new Eagle.Variant();
+          variant.parent = part;
           variant.parse(child);
 
       part.variants.push(variant);
@@ -1710,12 +1853,18 @@ Eagle.define('Eagle.Pass', function() {
     var pass = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pass[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('param', node, function(child) {
 
       var param = new Eagle.Param();
+          param.parent = pass;
           param.parse(child);
 
       pass.param = param;
@@ -1767,7 +1916,12 @@ Eagle.define('Eagle.Pin', function() {
     var pin = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pin[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -1809,7 +1963,12 @@ Eagle.define('Eagle.PinRef', function() {
     var pinref = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pinref[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -1863,12 +2022,18 @@ Eagle.define('Eagle.Polygon', function() {
     var polygon = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       polygon[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('vertex', node, function(child) {
 
       var vertex = new Eagle.Vertex();
+          vertex.parent = polygon;
           vertex.parse(child);
 
       polygon.vertex.push(vertex);
@@ -1917,7 +2082,12 @@ Eagle.define('Eagle.Rectangle', function() {
     var rectangle = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       rectangle[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -1967,7 +2137,12 @@ Eagle.define('Eagle.SMD', function() {
     var smd = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       smd[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -2017,7 +2192,12 @@ Eagle.define('Eagle.Schematic', function() {
     var schematic = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       schematic[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('libraries', node, function(child) {
@@ -2025,6 +2205,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('library', child, function(lib) {
 
         var library = new Eagle.Library();
+            library.parent = schematic;
             library.parse(lib);
 
         schematic.libraries.push(library);
@@ -2038,6 +2219,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('attribute', child, function(a) {
 
         var attribute = new Eagle.Attribute();
+            attribute.parent = schematic;
             attribute.parse(a);
 
         schematic.attributes.push(attribute);
@@ -2051,6 +2233,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('variantdef', child, function(v) {
 
         var variantdef = new Eagle.VariantDef();
+            variantdef.parent = schematic;
             variantdef.parse(v);
 
         schematic.variantdefs.push(variantdef);
@@ -2064,6 +2247,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('class', child, function(c) {
 
         var cl = new Eagle.Class();
+            cl.parent = schematic;
             cl.parse(c);
 
         schematic.classes.push(cl);
@@ -2077,6 +2261,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('part', child, function(p) {
 
         var part = new Eagle.Part();
+            part.parent = schematic;
             part.parse(p);
 
         schematic.parts.push(part);
@@ -2090,6 +2275,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('sheet', child, function(s) {
 
         var sheet = new Eagle.Sheet();
+            sheet.parent = schematic;
             sheet.parse(s);
 
         schematic.sheets.push(sheet);
@@ -2103,6 +2289,7 @@ Eagle.define('Eagle.Schematic', function() {
       Eagle.eachNode('error', child, function(e) {
 
         var error = new Eagle.Error();
+            error.parent = schematic;
             error.parse(e);
 
         schematic.errors.push(error);
@@ -2159,13 +2346,13 @@ Eagle.define('Eagle.Segment', function() {
 
       Eagle.eachNode(t.toLowerCase(), node, function(child) {
 
-        var obj = Eagle[t];
+        var obj = Eagle[t],
+            type = new obj();
 
-        var type = new obj();
-            type.parse(child);
+        type.parent = segment;
+        type.parse(child);
 
         segment.type = type;
-
         segment.type.draw();
 
       });
@@ -2212,7 +2399,12 @@ Eagle.define('Eagle.Settings', function(){
     Eagle.eachNode('setting', node, function(child) {
 
       Eagle.each(child.attributes, function(i, attribute) {
+
+        if(attribute.nodeType != 2)
+          return;
+
         settings[attribute.name] = Eagle.discernType(attribute.value);
+
       });
 
     });
@@ -2261,6 +2453,7 @@ Eagle.define('Eagle.Sheet', function() {
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = sheet;
           description.parse(child);
 
       sheet.description = description;
@@ -2282,6 +2475,7 @@ Eagle.define('Eagle.Sheet', function() {
       Eagle.eachNode('instance', child, function(i) {
 
         var instance = new Eagle.Instance();
+            instance.parent = sheet;
             instance.parse(i);
 
         sheet.instances.push(instance);
@@ -2295,6 +2489,7 @@ Eagle.define('Eagle.Sheet', function() {
       Eagle.eachNode('bus', child, function(b) {
 
         var bus = new Eagle.Bus();
+            bus.parent = sheet;
             bus.parse(b);
 
         sheet.busses.push(bus);
@@ -2308,6 +2503,7 @@ Eagle.define('Eagle.Sheet', function() {
       Eagle.eachNode('net', child, function(n) {
 
         var net = new Eagle.Net();
+            net.parent = sheet;
             net.parse(n);
 
         sheet.nets.push(net);
@@ -2367,12 +2563,18 @@ Eagle.define('Eagle.Symbol', function() {
     var symbol = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       symbol[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = symbol;
           description.parse(child);
 
       symbol.description = description;
@@ -2383,10 +2585,11 @@ Eagle.define('Eagle.Symbol', function() {
 
       Eagle.eachNode(t.toLowerCase(), node, function(child) {
 
-        var obj = Eagle[t];
+        var obj = Eagle[t],
+            type = new obj();
 
-        var type = new obj();
-            type.parse(child);
+        type.parent = symbol;
+        type.parse(child);
 
         symbol.types.push(type);
 
@@ -2431,7 +2634,12 @@ Eagle.define('Eagle.Technology', function() {
     var technology = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       technology[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -2479,7 +2687,12 @@ Eagle.define('Eagle.Text', function() {
     var text = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       text[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     this.content = node.textContent;
@@ -2524,7 +2737,12 @@ Eagle.define('Eagle.Variant', function(){
     var variant = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       variant[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -2564,7 +2782,12 @@ Eagle.define('Eagle.VariantDef', function(){
     var variantdef = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       variantdef[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -2606,7 +2829,12 @@ Eagle.define('Eagle.Vertex', function() {
     var vertex = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       vertex[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };
@@ -2655,7 +2883,12 @@ Eagle.define('Eagle.Wire', function() {
     var wire = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       wire[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

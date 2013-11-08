@@ -40,13 +40,13 @@ Eagle.define('Eagle.Segment', function() {
 
       Eagle.eachNode(t.toLowerCase(), node, function(child) {
 
-        var obj = Eagle[t];
+        var obj = Eagle[t],
+            type = new obj();
 
-        var type = new obj();
-            type.parse(child);
+        type.parent = segment;
+        type.parse(child);
 
         segment.type = type;
-
         segment.type.draw();
 
       });

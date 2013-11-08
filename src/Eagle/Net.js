@@ -34,12 +34,18 @@ Eagle.define('Eagle.Net', function() {
     var net = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       net[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('segment', node, function(child) {
 
       var segment = new Eagle.Segment();
+          segment.parent = net;
           segment.parse(child);
 
       net.segment = segment;

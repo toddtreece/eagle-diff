@@ -44,12 +44,18 @@ Eagle.define('Eagle.Symbol', function() {
     var symbol = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       symbol[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = symbol;
           description.parse(child);
 
       symbol.description = description;
@@ -60,10 +66,11 @@ Eagle.define('Eagle.Symbol', function() {
 
       Eagle.eachNode(t.toLowerCase(), node, function(child) {
 
-        var obj = Eagle[t];
+        var obj = Eagle[t],
+            type = new obj();
 
-        var type = new obj();
-            type.parse(child);
+        type.parent = symbol;
+        type.parse(child);
 
         symbol.types.push(type);
 

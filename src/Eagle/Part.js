@@ -39,13 +39,19 @@ Eagle.define('Eagle.Part', function(){
     var part = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       part[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
 
     Eagle.eachNode('attributes', node, function(child) {
 
       var attribute = new Eagle.Attribute();
+          attribute.parent = part;
           attribute.parse(child);
 
       part.attributes.push(attribute);
@@ -55,6 +61,7 @@ Eagle.define('Eagle.Part', function(){
     Eagle.eachNode('variant', node, function(child) {
 
       var variant = new Eagle.Variant();
+          variant.parent = part;
           variant.parse(child);
 
       part.variants.push(variant);

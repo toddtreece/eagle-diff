@@ -33,7 +33,12 @@ Eagle.define('Eagle.Variant', function(){
     var variant = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       variant[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

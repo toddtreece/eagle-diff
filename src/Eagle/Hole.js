@@ -32,7 +32,12 @@ Eagle.define('Eagle.Hole', function() {
     var hole = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       hole[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

@@ -40,7 +40,12 @@ Eagle.define('Eagle.Attribute', function(){
     var attribute = this;
 
     Eagle.each(node.attributes, function(i, attr) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       attribute[attr.name] = Eagle.discernType(attr.value);
+
     });
 
   };

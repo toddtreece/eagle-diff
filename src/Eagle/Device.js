@@ -35,7 +35,12 @@ Eagle.define('Eagle.Device', function() {
     var device = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       device[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('connects', node, function(child) {
@@ -43,6 +48,7 @@ Eagle.define('Eagle.Device', function() {
       Eagle.eachNode('connect', child, function(con) {
 
         var connect = new Eagle.Connect();
+            connect.parent = device;
             connect.parse(con);
 
         device.connects.push(connect);
@@ -56,6 +62,7 @@ Eagle.define('Eagle.Device', function() {
       Eagle.eachNode('technology', child, function(tech) {
 
         var technology = new Eagle.Technology();
+            technology.parent = device;
             technology.parse(tech);
 
         device.technologies.push(technology);

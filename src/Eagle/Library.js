@@ -36,12 +36,18 @@ Eagle.define('Eagle.Library', function() {
     var library = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       library[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = library;
           description.parse(child);
 
       library.description = description;
@@ -53,6 +59,7 @@ Eagle.define('Eagle.Library', function() {
       Eagle.eachNode('package', child, function(p) {
 
         var pack = new Eagle.Package();
+            pack.parent = library;
             pack.parse(p);
 
         library.packages.push(pack);
@@ -66,6 +73,7 @@ Eagle.define('Eagle.Library', function() {
       Eagle.eachNode('symbol', child, function(s) {
 
         var symbol = new Eagle.Symbol();
+            symbol.parent = library;
             symbol.parse(s);
 
         library.symbols.push(symbol);
@@ -79,6 +87,7 @@ Eagle.define('Eagle.Library', function() {
       Eagle.eachNode('deviceset', child, function(d) {
 
         var deviceset = new Eagle.DeviceSet();
+            deviceset.parent = library;
             deviceset.parse(d);
 
         library.devicesets.push(deviceset);
@@ -91,12 +100,16 @@ Eagle.define('Eagle.Library', function() {
 
   this.getSymbol = function(name) {
 
-    Eagle.each(this.symbols, function(i, symbol) {
+    var symbol = false;
 
-      if(symbol.name == name)
-        return name;
+    Eagle.each(this.symbols, function(i, sym) {
+
+      if(sym.name == name)
+        symbol = sym;
 
     });
+
+    return symbol;
 
   };
 

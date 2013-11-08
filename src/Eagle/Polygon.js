@@ -40,12 +40,18 @@ Eagle.define('Eagle.Polygon', function() {
     var polygon = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       polygon[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('vertex', node, function(child) {
 
       var vertex = new Eagle.Vertex();
+          vertex.parent = polygon;
           vertex.parse(child);
 
       polygon.vertex.push(vertex);

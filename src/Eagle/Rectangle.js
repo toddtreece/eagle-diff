@@ -35,7 +35,12 @@ Eagle.define('Eagle.Rectangle', function() {
     var rectangle = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       rectangle[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

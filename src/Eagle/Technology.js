@@ -30,7 +30,12 @@ Eagle.define('Eagle.Technology', function() {
     var technology = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       technology[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

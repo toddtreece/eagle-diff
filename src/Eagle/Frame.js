@@ -40,7 +40,12 @@ Eagle.define('Eagle.Frame', function() {
     var frame = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       frame[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

@@ -31,7 +31,12 @@ Eagle.define('Eagle.Clearance', function() {
     var clearance = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       clearance[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

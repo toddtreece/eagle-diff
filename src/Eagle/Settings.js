@@ -33,7 +33,12 @@ Eagle.define('Eagle.Settings', function(){
     Eagle.eachNode('setting', node, function(child) {
 
       Eagle.each(child.attributes, function(i, attribute) {
+
+        if(attribute.nodeType != 2)
+          return;
+
         settings[attribute.name] = Eagle.discernType(attribute.value);
+
       });
 
     });

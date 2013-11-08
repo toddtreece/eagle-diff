@@ -34,7 +34,12 @@ Eagle.define('Eagle.Circle', function() {
     var circle = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       circle[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

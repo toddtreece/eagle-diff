@@ -40,7 +40,12 @@ Eagle.define('Eagle.SMD', function() {
     var smd = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       smd[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

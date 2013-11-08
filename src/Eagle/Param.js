@@ -31,7 +31,12 @@ Eagle.define('Eagle.Param', function() {
     var param = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       param[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
   };

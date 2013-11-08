@@ -37,12 +37,18 @@ Eagle.define('Eagle.DeviceSet', function() {
     var deviceset = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       deviceset[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('description', node, function(child) {
 
       var description = new Eagle.Description();
+          description.parent = deviceset;
           description.parse(child);
 
       deviceset.description = description;
@@ -54,6 +60,7 @@ Eagle.define('Eagle.DeviceSet', function() {
       Eagle.eachNode('gate', child, function(g) {
 
         var gate = new Eagle.Gate();
+            gate.parent = deviceset;
             gate.parse(g);
 
         deviceset.gates.push(gate);
@@ -67,6 +74,7 @@ Eagle.define('Eagle.DeviceSet', function() {
       Eagle.eachNode('device', child, function(dev) {
 
         var device = new Eagle.Device();
+            device.parent = deviceset;
             device.parse(dev);
 
         deviceset.devices.push(device);

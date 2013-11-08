@@ -35,12 +35,18 @@ Eagle.define('Eagle.Pass', function() {
     var pass = this;
 
     Eagle.each(node.attributes, function(i, attribute) {
+
+      if(attribute.nodeType != 2)
+        return;
+
       pass[attribute.name] = Eagle.discernType(attribute.value);
+
     });
 
     Eagle.eachNode('param', node, function(child) {
 
       var param = new Eagle.Param();
+          param.parent = pass;
           param.parse(child);
 
       pass.param = param;

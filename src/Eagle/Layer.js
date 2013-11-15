@@ -45,5 +45,9 @@ Eagle.define('Eagle.Layer', function(){
 
   };
 
+  this.getColor = function() {
+    return Eagle.Color.getColor(this.color);
+  };
+
 });
 

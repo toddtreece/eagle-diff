@@ -66,7 +66,7 @@ Eagle.define('Eagle.Wire', function() {
       .moveTo(this.x1 * 2, this.y1 * 2)
       .lineTo(this.x2 * 2, this.y2 * 2)
       .closePath()
-      .stroke(this.width * 2, '#000');
+      .stroke(this.width * 2, layer.getColor());
 
   };
 
